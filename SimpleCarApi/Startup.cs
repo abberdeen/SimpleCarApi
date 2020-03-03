@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CarsApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +34,8 @@ namespace SimpleCarApi
 
             services.AddSingleton<ICarDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<CarDatabaseSettings>>().Value);
+
+            services.AddSingleton<CarService>();
 
             services.AddControllers();
         }
