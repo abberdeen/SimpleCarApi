@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using CarsApi.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json; 
+using System.Collections.Generic; 
+using System.Text.Json; 
+using Microsoft.AspNetCore.Mvc; 
 using SimpleCarApi.Model;
+using SimpleCarApi.Services;
 
 namespace SimpleCarApi.Controllers
 {
@@ -17,9 +11,9 @@ namespace SimpleCarApi.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
-        private readonly CarService _carService;
+        private ICarService _carService;
 
-        public CarsController(CarService carService)
+        public CarsController(ICarService carService)
         {
             _carService = carService;
         }
@@ -44,12 +38,12 @@ namespace SimpleCarApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Query([FromBody] JsonElement data)
+        public ActionResult<Car> Query([FromBody] JsonElement data)
         {           
-            if (JsonContainsKey(ref data,"id")) 
+            if (JsonContainsKey(ref data,"Id")) 
             {
                 //на апдейт высылаем, то передаем только те поля, что нужно обновить + Id.
-                int id = data.GetProperty("id").GetInt32();
+                int id = data.GetProperty("Id").GetInt32();
 
                 var car = _carService.Get(id);
 
@@ -58,17 +52,19 @@ namespace SimpleCarApi.Controllers
                     return NotFound();
                 }
 
-                if (JsonContainsKey(ref data, "name")) 
+                if (JsonContainsKey(ref data, "Name")) 
                 {
-                    car.Name = data.GetProperty("name").GetString();
+                    car.Name = data.GetProperty("Name").GetString();
                 }
 
-                if (JsonContainsKey(ref data, "description"))
+                if (JsonContainsKey(ref data, "Description"))
                 {
-                    car.Description = data.GetProperty("description").GetString();
+                    car.Description = data.GetProperty("Description").GetString();
                 }
 
                 _carService.Update(id, car);
+
+                return car;
             }
             else
             {
@@ -79,9 +75,9 @@ namespace SimpleCarApi.Controllers
 
                 car.Id = counter;
 
-                if (JsonContainsKey(ref data, "name"))
+                if (JsonContainsKey(ref data, "Name"))
                 {
-                    car.Name = data.GetProperty("name").GetString();
+                    car.Name = data.GetProperty("Name").GetString();
                 }
 
                 if (car.Name == null || car.Name == "")
@@ -89,14 +85,14 @@ namespace SimpleCarApi.Controllers
                     return BadRequest();
                 }
 
-                if (JsonContainsKey(ref data, "description"))
+                if (JsonContainsKey(ref data, "Description"))
                 {
-                    car.Description = data.GetProperty("description").GetString();
+                    car.Description = data.GetProperty("Description").GetString();
                 }
 
                 _carService.Create(car);
-            }
-            return NoContent();
+                return car;
+            } 
         }
 
         private bool JsonContainsKey(ref JsonElement data, string key)

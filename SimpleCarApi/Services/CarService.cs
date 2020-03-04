@@ -6,9 +6,9 @@ using MongoDB.Bson;
 using System.Threading.Tasks;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace CarsApi.Services
+namespace SimpleCarApi.Services
 {
-    public class CarService
+    public class CarService : ICarService
     {
         private readonly IMongoCollection<Car> _cars;
         private IMongoDatabase _database;
