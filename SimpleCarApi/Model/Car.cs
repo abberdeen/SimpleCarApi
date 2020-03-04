@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace SimpleCarApi.Model
 {
-    public class Car
+    public class Car 
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        [Required]
-        public string Id { get; set; }
+        [BsonRepresentation(BsonType.Int32)] 
+        public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         public string Description{ get; set; }
