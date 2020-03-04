@@ -75,7 +75,7 @@ namespace SimpleCarApi.TestHost
             };
 
             // Act
-            var response = await Client.DeleteAsync(request.Url, ContentHelper.GetStringContent(request.Body));
+            var response = await Client.DeleteAsync(request.Url);
             var value = await response.Content.ReadAsStringAsync();
 
             // Assert 
@@ -107,7 +107,7 @@ namespace SimpleCarApi.TestHost
             response.EnsureSuccessStatusCode();
         }
 
-        //Апдейт поля Description по Id. Передаем только поле Name + Id
+        //Апдейт поля Name по Id. Передаем только поле Name + Id
         [Fact]
         public async Task TestPostCarDescAsync()
         {
