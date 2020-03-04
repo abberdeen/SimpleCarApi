@@ -8,18 +8,18 @@ namespace SimpleCarApi.Services
 {
     public interface ICarService
     {
-        public int GetNextObjectSequence(string objectName);
+         int GetNextObjectSequence(string objectName);
 
-        public List<Car> Get();
+         List<Car> Get();
 
-        public Car Get(int id);
+         Car Get(int id);
 
-        public Car Create(Car car);
+         Car Create(Car car);
 
-        public void Update(int id, Car carIn);
+         void Update(int id, Car carIn);
 
-        public void Remove(Car carIn);
+         void Remove(Car carIn);
 
-        public void Remove(int id);
+         void Remove(int id);
     }
 }
