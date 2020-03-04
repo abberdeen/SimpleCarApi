@@ -118,7 +118,7 @@ namespace SimpleCarApi.TestHost
                 Body = new
                 {
                     Id = 1,
-                    Description = "null"
+                    Description = (string)null
                 }
             };
 

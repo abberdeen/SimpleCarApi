@@ -14,7 +14,7 @@ namespace SimpleCarApi.Model
     {
         [BsonId]
         [BsonRepresentation(BsonType.Int32)] 
-        public int Id { get; set; }
+        public int Id { get; set; } //has MongoDb carId counter
 
         [Required]
         public string Name { get; set; }
