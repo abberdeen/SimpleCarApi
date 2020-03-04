@@ -29,11 +29,11 @@ namespace SimpleCarApi
         public void ConfigureServices(IServiceCollection services)
         {
             // requires using Microsoft.Extensions.Options
-            services.Configure<CarDatabaseSettings>(
-                Configuration.GetSection(nameof(CarDatabaseSettings)));
+            services.Configure<CarsDatabaseSettings>(
+                Configuration.GetSection(nameof(CarsDatabaseSettings)));
 
-            services.AddSingleton<ICarDatabaseSettings>(sp =>
-                sp.GetRequiredService<IOptions<CarDatabaseSettings>>().Value);
+            services.AddSingleton<ICarsDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<CarsDatabaseSettings>>().Value);
 
             services.AddSingleton<CarService>();
 

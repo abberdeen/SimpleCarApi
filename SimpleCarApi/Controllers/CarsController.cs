@@ -11,23 +11,23 @@ namespace SimpleCarApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarController : ControllerBase
+    public class CarsController : ControllerBase
     {
         private readonly CarService _carService;
 
-        public CarController(CarService carService)
+        public CarsController(CarService carService)
         {
             _carService = carService;
         }
 
-        // GET: api/Car
+        // GET: api/Cars
         [HttpGet]
         public ActionResult<List<Car>> Get() =>
            _carService.Get();
 
-        // GET: api/Car/5
+        // GET: api/Cars/5
         [HttpGet("{id}", Name = "Get")]
-        public ActionResult<Car> Get(int id)
+        public ActionResult<Car> Get(string id)
         {
             var car = _carService.Get(id);
 
@@ -44,11 +44,11 @@ namespace SimpleCarApi.Controllers
         {
             _carService.Create(car);
 
-            return CreatedAtRoute("GetCar", new { id = car.Id.ToString() }, car);
+            return CreatedAtRoute("GetCar", new { id = car.Id }, car);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Car carId)
+        public IActionResult Update(string id, Car carId)
         {
             var car = _carService.Get(id);
 
@@ -63,7 +63,7 @@ namespace SimpleCarApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
             var car = _carService.Get(id);
 
@@ -72,7 +72,7 @@ namespace SimpleCarApi.Controllers
                 return NotFound();
             }
 
-            _carService.Remove(car.Id);
+            _carService.Remove(car);
 
             return NoContent();
         }

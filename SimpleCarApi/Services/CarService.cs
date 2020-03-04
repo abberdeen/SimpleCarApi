@@ -9,7 +9,7 @@ namespace CarsApi.Services
     {
         private readonly IMongoCollection<Car> _cars;
 
-        public CarService(ICarDatabaseSettings settings)
+        public CarService(ICarsDatabaseSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
@@ -20,7 +20,7 @@ namespace CarsApi.Services
         public List<Car> Get() =>
             _cars.Find(car => true).ToList();
 
-        public Car Get(int id) =>
+        public Car Get(string id) =>
             _cars.Find<Car>(car => car.Id == id).FirstOrDefault();
 
         public Car Create(Car car)
@@ -29,13 +29,13 @@ namespace CarsApi.Services
             return car;
         }
 
-        public void Update(int id, Car carIn) =>
+        public void Update(string id, Car carIn) =>
             _cars.ReplaceOne(car => car.Id == id, carIn);
 
         public void Remove(Car carIn) =>
             _cars.DeleteOne(car => car.Id == carIn.Id);
 
-        public void Remove(int id) =>
+        public void Remove(string id) =>
             _cars.DeleteOne(car => car.Id == id);
     }
 }

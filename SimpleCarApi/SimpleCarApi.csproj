@@ -10,5 +10,7 @@
     <PackageReference Include="MongoDB.Driver.Core" Version="2.10.2" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="http://json.schemastore.org/bootstraprc" /></VisualStudio></ProjectExtensions>
+
 
 </Project>
